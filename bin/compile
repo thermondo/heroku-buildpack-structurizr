@@ -17,14 +17,12 @@ ENV_DIR=$3
 # source=utils.sh
 source "$BIN_DIR/utils.sh"
 
-STRUCTURIZR_HOME=$CACHE_DIR/structurizr-lite.war
+STRUCTURIZR_PATH=$CACHE_DIR/structurizr-lite.war
 
-if [ ! -f "$STRUCTURIZR_HOME" ]; then
+if [ ! -f "$STRUCTURIZR_PATH" ]; then
     puts-step "Downloading Structurizr"
-    curl -sL https://static.structurizr.com/download/structurizr-lite.war -o $STRUCTURIZR_HOME
+    curl -sL https://static.structurizr.com/download/structurizr-lite.war -o $CACHE_DIR
 fi
 
 puts-step "Move compiled version to build dir"
-cp $STRUCTURIZR_HOME/structurizr-lite.war $BUILD_DIR
-
-
+cp $STRUCTURIZR_PATH $BUILD_DIR
