@@ -21,7 +21,7 @@ STRUCTURIZR_PATH=$CACHE_DIR/structurizr-lite.war
 
 if [ ! -f "$STRUCTURIZR_PATH" ]; then
     puts-step "Downloading Structurizr"
-    curl -sL https://static.structurizr.com/download/structurizr-lite.war -o $CACHE_DIR
+    curl -sL https://static.structurizr.com/download/structurizr-lite.war -o $STRUCTURIZR_PATH
 fi
 
 puts-step "Move compiled version to build dir"
