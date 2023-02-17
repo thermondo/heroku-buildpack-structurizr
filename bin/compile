@@ -24,27 +24,28 @@ if [ ! -f "$STRUCTURIZR_HOME" ]; then
     mkdir $STRUCTURIZR_HOME $STRUCTURIZR_UI_HOME
 
     puts-step "Downloading Structurizr"
-    curl -sLo- https://github.com/structurizr/lite/archive/refs/heads/main.tar.gz | tar xzf - -C $STRUCTURIZR_HOME
-    curl -sLo- https://github.com/structurizr/ui/archive/refs/heads/main.tar.gz | tar xzf - -C $STRUCTURIZR_UI_HOME
-    mv $STRUCTURIZR_HOME/lite-main/* $STRUCTURIZR_HOME/.
-    mv $STRUCTURIZR_UI_HOME/ui-main/* $STRUCTURIZR_UI_HOME.
+    curl -sL https://static.structurizr.com/download/structurizr-lite.war -o $STRUCTURIZR_HOME/structurizr-lite.war
+    # curl o- https://github.com/structurizr/lite/archive/refs/heads/main.tar.gz | tar xzf - -C $STRUCTURIZR_HOME
+    # curl -sLo- https://github.com/structurizr/ui/archive/refs/heads/main.tar.gz | tar xzf - -C $STRUCTURIZR_UI_HOME
+    # mv $STRUCTURIZR_HOME/lite-main/* $STRUCTURIZR_HOME/.
+    # mv $STRUCTURIZR_UI_HOME/ui-main/* $STRUCTURIZR_UI_HOME.
 
-    puts-step "Run ui.sh"
-    cd "$STRUCTURIZR_HOME"
-    ./ui.sh
-    
-    puts-step "Move system.properties to structurizr home"
-    cp $BUILD_DIR/system.properties $STRUCTURIZR_HOME
-    
-    puts-step "Downloard java/gradle buildpack"
-    curl -sLo- https://github.com/heroku/heroku-buildpack-gradle/archive/refs/heads/main.tar.gz | tar xzf - -C $CACHE_DIR
-    
-    puts-step "Build Structurizr"
-    $CACHE_DIR/heroku-buildpack-gradle-main/bin/compile $STRUCTURIZR_HOME $BUILD_DIR $ENV_DIR
+    # puts-step "Run ui.sh"
+    # cd "$STRUCTURIZR_HOME"
+    # ./ui.sh
+    #
+    # puts-step "Move system.properties to structurizr home"
+    # cp $BUILD_DIR/system.properties $STRUCTURIZR_HOME
+    #
+    # puts-step "Downloard java/gradle buildpack"
+    # curl -sLo- https://github.com/heroku/heroku-buildpack-gradle/archive/refs/heads/main.tar.gz | tar xzf - -C $CACHE_DIR
+    #
+    # puts-step "Build Structurizr"
+    # $CACHE_DIR/heroku-buildpack-gradle-main/bin/compile $STRUCTURIZR_HOME $BUILD_DIR $ENV_DIR
 fi
 
 puts-step "Move compiled version to build dir"
-cp $STRUCTURIZR_HOME/build/libs/structurizr-lite.war $BUILD_DIR
-
+# cp $STRUCTURIZR_HOME/build/libs/structurizr-lite.war $BUILD_DIR
+cp $STRUCTURIZR_HOME/structurizr-lite.war $BUILD_DIR
 
 
