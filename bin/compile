@@ -17,5 +17,9 @@ ENV_DIR=$3
 # source=utils.sh
 source "$BIN_DIR/utils.sh"
 
+puts-step "read current version"
+version="$(curl -s https://structurizr.com/help/build/number)"
+url="https://static.structurizr.com/download/structurizr-lite-${version}.war"
+
 puts-step "Downloading Structurizr"
-curl -sL https://static.structurizr.com/download/structurizr-lite.war -o $BUILD_DIR
+curl -sL $url -o $BUILD_DIR/structurizr-lite.war
