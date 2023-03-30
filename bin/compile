@@ -21,5 +21,5 @@ puts-step "read current version"
 version="$(curl -s https://structurizr.com/help/build/number)"
 url="https://static.structurizr.com/download/structurizr-lite-${version}.war"
 
-puts-step "Downloading Structurizr"
+puts-step "downloading Structurizr build $version"
 curl -sL $url -o $BUILD_DIR/structurizr-lite.war
