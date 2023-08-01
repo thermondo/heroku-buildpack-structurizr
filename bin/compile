@@ -24,7 +24,7 @@ curl_dl() {
 
 puts-step "read current version"
 version="$(curl_dl https://structurizr.com/help/build/number)"
-url="https://static.structurizr.com/download/structurizr-lite-${version}.war"
+url="https://github.com/structurizr/lite/releases/download/v${version}/structurizr-lite.war"
 
 puts-step "downloading Structurizr build $version"
 curl_dl "$url" -o "$BUILD_DIR/structurizr-lite.war"
