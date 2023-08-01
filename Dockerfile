@@ -23,5 +23,5 @@ WORKDIR /app
 RUN echo "java.runtime.version=17.0.6" > /app/structurizr-lite/system.properties
 
 # Download the gradle buildpack
-RUN curl -sLo- https://github.com/heroku/heroku-buildpack-gradle/archive/refs/heads/main.tar.gz | tar xzf - -C /tmp
-RUN /tmp/heroku-buildpack-gradle-main/bin/compile /app/structurizr-lite /var/build-cache /var/env
+RUN curl -sfSLo- https://github.com/heroku/heroku-buildpack-gradle/archive/refs/heads/main.tar.gz | tar xzf - -C /tmp && \
+/tmp/heroku-buildpack-gradle-main/bin/compile /app/structurizr-lite /var/build-cache /var/env
