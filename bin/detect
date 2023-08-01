@@ -3,6 +3,6 @@
 BUILD_DIR=$1
 
 # Exit early if app does not specify the relevant properties.
-if [ ! -f $BUILD_DIR/system.properties ]; then
+if [ ! -f "$BUILD_DIR/system.properties" ]; then
   exit 1
 fi
