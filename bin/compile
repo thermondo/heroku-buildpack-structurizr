@@ -8,18 +8,23 @@
 set -eo pipefail
 
 # Paths.
-BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
-ROOT_DIR=$(dirname $BIN_DIR)
+BIN_DIR=$(cd "$(dirname "$0")"; pwd) # absolute path
+# ROOT_DIR=$(dirname "$BIN_DIR")
 BUILD_DIR=$1
-CACHE_DIR=$2
-ENV_DIR=$3
+# CACHE_DIR=$2
+# ENV_DIR=$3
 
-# source=utils.sh
+# shellcheck source=bin/utils.sh
 source "$BIN_DIR/utils.sh"
 
+curl_dl() {
+    # add standard "fail fast" parameters to a curl
+    curl --silent --fail --show-error --location "${@}"
+}
+
 puts-step "read current version"
-version="$(curl -s https://structurizr.com/help/build/number)"
+version="$(curl_dl https://structurizr.com/help/build/number)"
 url="https://static.structurizr.com/download/structurizr-lite-${version}.war"
 
 puts-step "downloading Structurizr build $version"
-curl -sL $url -o $BUILD_DIR/structurizr-lite.war
+curl_dl "$url" -o "$BUILD_DIR/structurizr-lite.war"
