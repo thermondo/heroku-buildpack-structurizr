@@ -23,7 +23,11 @@ curl_dl() {
 }
 
 puts-step "read current version"
-version="$(curl_dl https://structurizr.com/help/build/number)"
+if [ "${STRUCTURIZR_BUILD:-}" == "" ]; then
+    version="$(curl_dl https://structurizr.com/help/build/number)"
+else
+    version="${STRUCTURIZR_BUILD}"
+fi
 url="https://github.com/structurizr/lite/releases/download/v${version}/structurizr-lite.war"
 
 puts-step "downloading Structurizr build $version"
