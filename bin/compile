@@ -23,8 +23,26 @@ curl_dl() {
 }
 
 puts-step "read current version"
-version="$(curl_dl https://structurizr.com/help/build/number)"
-url="https://github.com/structurizr/lite/releases/download/v${version}/structurizr-lite.war"
+if [ "${STRUCTURIZR_BUILD:-}" == "" ]; then
+    # user has not specified what specific build of structurizr to use. let's
+    # get latest release tag from github then!
+    #
+    # the GH API returns JSON, and we're interested in this property (example):
+    #
+    #     "tag_name": "v3124",
+    #
+    # the following regex does a look-ahead for the `"tag_name": "` part
+    # and then starts matching "v" plus some numbers (capturing the `v3124` part)
+    # 
+    tag_regex='(?<="tag_name": ")(v[0-9]+)'
+    version="$(
+        curl_dl "https://api.github.com/repos/structurizr/lite/releases/latest" \
+            | grep --perl-regexp --only-matching "${tag_regex}"
+    )"
+else
+    version="${STRUCTURIZR_BUILD}"
+fi
+url="https://github.com/structurizr/lite/releases/download/${version}/structurizr-lite.war"
 
 puts-step "downloading Structurizr build $version"
 curl_dl "$url" -o "$BUILD_DIR/structurizr-lite.war"
