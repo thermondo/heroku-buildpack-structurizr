@@ -33,7 +33,7 @@ if [ "${STRUCTURIZR_BUILD:-}" == "" ]; then
     #
     # the following regex does a lookbehind for the `"tag_name": "` part
     # and then starts matching non-whitespace characters (\S) until it finds
-    # another quotation mark via a lookbehind: `(?=")`
+    # another quotation mark via a lookahead: `(?=")`
     #
     tag_regex='(?<="tag_name": ")(\S+)(?=")'
     version="$(
