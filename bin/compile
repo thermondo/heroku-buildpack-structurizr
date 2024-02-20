@@ -29,12 +29,13 @@ if [ "${STRUCTURIZR_BUILD:-}" == "" ]; then
     #
     # the GH API returns JSON, and we're interested in this property (example):
     #
-    #     "tag_name": "v3124",
+    #     "tag_name": "2024.01.02",
     #
-    # the following regex does a look-ahead for the `"tag_name": "` part
-    # and then starts matching "v" plus some numbers (capturing the `v3124` part)
-    # 
-    tag_regex='(?<="tag_name": ")(v[0-9]+)'
+    # the following regex does a lookbehind for the `"tag_name": "` part
+    # and then starts matching non-whitespace characters (\S) until it finds
+    # another quotation mark via a lookbehind: `(?=")`
+    #
+    tag_regex='(?<="tag_name": ")(\S+)(?=")'
     version="$(
         curl_dl "https://api.github.com/repos/structurizr/lite/releases/latest" \
             | grep --perl-regexp --only-matching "${tag_regex}"
